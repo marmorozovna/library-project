@@ -33,10 +33,12 @@ public class GenreServiceImpl implements GenreService {
                         .authors(book.getAuthors()
                         .stream()
                         .map(author -> AuthorDTO.builder().
-                                name(author.getName()).
+                                name(author.getName())
+                                .surname(author.getSurname()).
                                 id(author.getId())
-                                .build()
-                        .build()))
+                                .build()).
+                                toList())
+                        .build()
                 ).toList();
         return GenreDTO.builder()
                 .id(genre.getId())
