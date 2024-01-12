@@ -20,10 +20,10 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public GenreDTO getGenreById(Long id) {
         Genre genre = genreRepository.findById(id).orElseThrow();
-        return converToDTO(genre);
+        return convertToDTO(genre);
     }
 
-    private GenreDTO converToDTO(Genre genre) {
+    private GenreDTO convertToDTO(Genre genre) {
 
         List<BookDTO> bookDTOList = bookRepository.findAll()
                 .stream()

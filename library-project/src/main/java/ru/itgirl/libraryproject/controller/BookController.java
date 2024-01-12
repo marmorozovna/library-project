@@ -1,10 +1,10 @@
 package ru.itgirl.libraryproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.itgirl.libraryproject.model.dto.BookCreateDTO;
 import ru.itgirl.libraryproject.model.dto.BookDTO;
+import ru.itgirl.libraryproject.model.dto.BookUpdateDTO;
 import ru.itgirl.libraryproject.model.service.BookService;
 
 @RestController
@@ -25,5 +25,20 @@ public class BookController {
     @GetMapping("/book/v3")
     BookDTO getBookByNameV3(@RequestParam("name") String name) {
         return bookService.getByNameV3(name);
+    }
+
+    @PostMapping("/book/create")
+    BookDTO createBook(@RequestBody BookCreateDTO bookCreateDTO) {
+        return bookService.createBook(bookCreateDTO);
+    }
+
+    @PutMapping("/book/update")
+    BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO) {
+        return bookService.updateBook(bookUpdateDTO);
+    }
+
+    @DeleteMapping("/book/delete/{id}")
+    void deleteBook(@PathVariable("id") Long id) {
+        bookService.deleteBook(id);
     }
 }
