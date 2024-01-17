@@ -14,6 +14,9 @@ import ru.itgirl.libraryproject.model.entity.Book;
 import ru.itgirl.libraryproject.repository.BookRepository;
 import ru.itgirl.libraryproject.repository.GenreRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
@@ -63,6 +66,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long id){
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDTO> getAllBooks (){
+        List <Book> books = bookRepository.findAll();
+        return books.stream().map(this::convertEntityToDTO).collect(Collectors.toList());
     }
 
     private Book convertDtoToEntity(BookCreateDTO bookCreateDTO) {
