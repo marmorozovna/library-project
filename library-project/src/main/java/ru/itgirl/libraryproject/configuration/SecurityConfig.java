@@ -20,7 +20,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorize)
+        http.csrf().disable()
+                .authorizeHttpRequests((authorize)
                 -> authorize
                 .requestMatchers("/book")
                 .hasRole("USER")

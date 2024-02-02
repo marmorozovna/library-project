@@ -1,5 +1,7 @@
 package ru.itgirl.libraryproject.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.itgirl.libraryproject.model.dto.AuthorCreateDTO;
@@ -9,6 +11,7 @@ import ru.itgirl.libraryproject.model.service.AuthorService;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "library-users")
 public class AuthorController {
     private final AuthorService authorService;
 
@@ -33,12 +36,12 @@ public class AuthorController {
     }
 
     @PostMapping("/author/create")
-    AuthorDTO createAuthor(@RequestBody AuthorCreateDTO authorCreateDTO) {
+    AuthorDTO createAuthor(@RequestBody @Valid AuthorCreateDTO authorCreateDTO) {
         return authorService.createAuthor(authorCreateDTO);
     }
 
     @PutMapping("author/update")
-    AuthorDTO updateAuthor(@RequestBody AuthorUpdateDTO authorUpdateDTO){
+    AuthorDTO updateAuthor(@RequestBody @Valid AuthorUpdateDTO authorUpdateDTO){
         return authorService.updateAuthor(authorUpdateDTO);
     }
 
