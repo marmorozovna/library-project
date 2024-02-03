@@ -80,8 +80,9 @@ public class BookServiceImpl implements BookService {
     public BookDTO createBook(BookCreateDTO bookCreateDTO) {
         log.info("Try to create book: {}", bookCreateDTO.toString());
         Book book = bookRepository.save(convertDtoToEntity(bookCreateDTO));
-        log.info("Book saved");
-        return convertEntityToDTO(book);
+        BookDTO bookDTO = convertEntityToDTO(book);
+        log.info("Book saved: {}", bookDTO.toString());
+        return bookDTO;
     }
 
     @Override
@@ -92,8 +93,9 @@ public class BookServiceImpl implements BookService {
             book.get().setName(bookUpdateDTO.getName());
             book.get().setGenre(genreRepository.findById(bookUpdateDTO.getGenre_id()).orElseThrow());
             Book savedBook = bookRepository.save(book.get());
-            log.info("Book saved: {}", convertEntityToDTO(savedBook).toString());
-            return convertEntityToDTO(savedBook);
+            BookDTO bookDTO = convertEntityToDTO(savedBook);
+            log.info("Book saved: {}", bookDTO.toString());
+            return bookDTO;
         } else {
             log.error("Book with id {} not found",bookUpdateDTO.getId());
             throw new NoSuchElementException("No value present");
@@ -102,7 +104,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(Long id) {
-        log.info("Try to update book, id: {}", id);
+        log.info("Try to delete book, id: {}", id);
         bookRepository.deleteById(id);
         log.info("Book successfully deleted");
     }

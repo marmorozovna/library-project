@@ -138,7 +138,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     private AuthorDTO convertEntityToDto(Author author) {
-        log.info("Try to get convert author entity into Dto");
+        log.info("Try to convert author entity into Dto");
         List<BookDTO> bookDTOList = null;
         if (author.getBooks() != null) {
             bookDTOList = author.getBooks()
