@@ -72,12 +72,8 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorDTO getByNameV3(String name) {
         log.info("Try to find author by name {}", name);
-        Specification<Author> specification = Specification.where(new Specification<Author>() {
-            @Override
-            public Predicate toPredicate(Root<Author> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.equal(root.get("name"), name);
-            }
-        });
+        Specification<Author> specification = Specification
+                .where((Specification<Author>) (root, query, cb) -> cb.equal(root.get("name"), name));
         Optional<Author> author = authorRepository.findOne(specification);
         if (author.isPresent()) {
             AuthorDTO authorDto = convertEntityToDto(author.get());
