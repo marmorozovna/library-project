@@ -16,11 +16,10 @@ import ru.itgirl.libraryproject.model.dto.AuthorUpdateDTO;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc (addFilters = false)
 public class AuthorRestControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
     @Test
     public void testGetAuthorById() throws Exception {
         Long authorId = 1L;
@@ -37,7 +36,7 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void testGetAuthorByName() throws Exception {
+    public void testGetAuthorByName () throws Exception {
         Long authorId = 1L;
         String authorName = "Александр";
         AuthorDTO authorDto = new AuthorDTO();
@@ -45,7 +44,7 @@ public class AuthorRestControllerTest {
         authorDto.setName(authorName);
         authorDto.setSurname("Пушкин");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/author").param("name", authorName))
+        mockMvc.perform(MockMvcRequestBuilders.get("/author").param("name",authorName))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(authorDto.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(authorDto.getName()))
@@ -53,7 +52,7 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void testGetAuthorByNameV2() throws Exception {
+    public void testGetAuthorByNameV2 () throws Exception {
         Long authorId = 1L;
         String authorName = "Александр";
         AuthorDTO authorDto = new AuthorDTO();
@@ -61,7 +60,7 @@ public class AuthorRestControllerTest {
         authorDto.setName(authorName);
         authorDto.setSurname("Пушкин");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/author/v2").param("name", authorName))
+        mockMvc.perform(MockMvcRequestBuilders.get("/author/v2").param("name",authorName))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(authorDto.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(authorDto.getName()))
@@ -69,7 +68,7 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void testGetAuthorByNameV3() throws Exception {
+    public void testGetAuthorByNameV3 () throws Exception {
         Long authorId = 1L;
         String authorName = "Александр";
         AuthorDTO authorDto = new AuthorDTO();
@@ -77,7 +76,7 @@ public class AuthorRestControllerTest {
         authorDto.setName(authorName);
         authorDto.setSurname("Пушкин");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/author/v3").param("name", authorName))
+        mockMvc.perform(MockMvcRequestBuilders.get("/author/v3").param("name",authorName))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(authorDto.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(authorDto.getName()))
@@ -85,7 +84,7 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void testCreateAuthor() throws Exception {
+    public void testCreateAuthor () throws Exception {
         AuthorCreateDTO authorCreateDto = new AuthorCreateDTO();
         authorCreateDto.setName("Александр");
         authorCreateDto.setSurname("Пушкин");
@@ -100,7 +99,7 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void testUpdateAuthor() throws Exception {
+    public void testUpdateAuthor () throws Exception {
         Long authorId = 1L;
         AuthorUpdateDTO authorUpdateDTO = new AuthorUpdateDTO();
         authorUpdateDTO.setId(authorId);
@@ -117,9 +116,9 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void testDeleteAuthor() throws Exception {
-        Long authorId = 1L;
-        mockMvc.perform(MockMvcRequestBuilders.delete("/author/delete/{id}", authorId))
+    public void testDeleteAuthor () throws Exception {
+        Long authorId = 6L;
+        mockMvc.perform(MockMvcRequestBuilders.delete("/author/delete/{id}",authorId))
                 .andExpect(status().isOk());
     }
 

@@ -20,9 +20,24 @@ public class BookRestControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    public void testCreateBook() throws Exception {
+        BookCreateDTO bookCreateDTO = new BookCreateDTO();
+        bookCreateDTO.setName("Гордость и предубеждение");
+        bookCreateDTO.setGenre_id(2L);
+        String bookGenre = "Роман";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/book/create").accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(bookCreateDTO)))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(bookCreateDTO.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value(bookGenre));
+    }
+    @Test
     public void testGetBookByName() throws Exception {
         Long bookId = 1L;
-        String bookName = "Война и мир";
+        String bookName = "Эмма";
         String bookGenre = "Роман";
         BookDTO bookDto = new BookDTO();
         bookDto.setId(bookId);
@@ -39,7 +54,7 @@ public class BookRestControllerTest {
     @Test
     public void testGetBookByNameV2() throws Exception {
         Long bookId = 1L;
-        String bookName = "Война и мир";
+        String bookName = "Эмма";
         String bookGenre = "Роман";
         BookDTO bookDto = new BookDTO();
         bookDto.setId(bookId);
@@ -56,7 +71,7 @@ public class BookRestControllerTest {
     @Test
     public void testGetBookByNameV3() throws Exception {
         Long bookId = 1L;
-        String bookName = "Война и мир";
+        String bookName = "Эмма";
         String bookGenre = "Роман";
         BookDTO bookDto = new BookDTO();
         bookDto.setId(bookId);
@@ -70,28 +85,14 @@ public class BookRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value(bookDto.getGenre()));
     }
 
-    @Test
-    public void testCreateBook() throws Exception {
-        BookCreateDTO bookCreateDTO = new BookCreateDTO();
-        bookCreateDTO.setName("Гордость и предубеждение");
-        bookCreateDTO.setGenre_id(2L);
-        String bookGenre = "Роман";
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/book/create").accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(bookCreateDTO)))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(bookCreateDTO.getName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value(bookGenre));
-    }
 
     @Test
     public void testUpdateBook() throws Exception {
         Long authorId = 1L;
         BookUpdateDTO bookUpdateDTO = new BookUpdateDTO();
         bookUpdateDTO.setId(authorId);
-        bookUpdateDTO.setName("Гордость и предубеждение");
+        bookUpdateDTO.setName("Эмма");
         bookUpdateDTO.setGenre_id(2L);
         String bookGenre = "Роман";
 
@@ -106,7 +107,7 @@ public class BookRestControllerTest {
 
     @Test
     public void testDeleteBook() throws Exception {
-        Long authorId = 1L;
+        Long authorId = 5L;
         mockMvc.perform(MockMvcRequestBuilders.delete("/book/delete/{id}", authorId))
                 .andExpect(status().isOk());
     }
