@@ -30,8 +30,8 @@
             ('user', '$2a$10$aXNexzzRcve4AndvuDBSF.iDThVrh/vegzCX8975W2D5AlenroAGa');
 
             Insert into roles(name) values
-            ('ADMIN'),
-            ('USER');
+            ('ROLE_ADMIN'),
+            ('ROLE_USER');
 
             Insert into user_role(user_id,role_id) values
             (1,1),

@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("User with username {} found", username);
             Set<GrantedAuthority> grantedRoles = new HashSet<>();
             for (Role role : user.get().getRoles()) {
-                grantedRoles.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+                grantedRoles.add(new SimpleGrantedAuthority(role.getName()));
             }
             return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), grantedRoles);
         } else {
